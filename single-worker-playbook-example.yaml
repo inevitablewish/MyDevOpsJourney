@@ -1,0 +1,25 @@
+---
+ - name: This is play for worker1
+   hosts: worker1
+   become: yes
+   tasks:
+           - name: Adding UseX Account
+             user:
+                     name: userX
+                     state: present
+
+           - name: Create /Project123 directory
+             file:
+                     name: /Project123
+                     state: directory
+                     owner: userX
+                     mode: 0777
+ - name: This is second worker2
+   hosts: worker2
+   become: no
+   tasks:
+           - name: Task 2 on Play 2
+             debug:
+                     msg: "This is sameple Task"
+
+   
