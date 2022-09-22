@@ -7,6 +7,7 @@
              user:
                      name: userX
                      state: present
+                     password: "{{'simplilearn' | password_hash('sha512')}}"
 
            - name: Create /Project123 directory
              file:
