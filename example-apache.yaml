@@ -1,0 +1,22 @@
+---
+ - name: "My First Apache Webserver"
+   become: yes
+   hosts: workers
+   tasks:
+           - name: "Update the APT package"
+             command: "apt update"
+
+           - name: "Install Apache2 to Worker Nodes"
+             apt:
+                     name: apache2
+                     state: latest
+           - name: "Start the Service Apache2"
+             service:
+                     name: apache2
+                     state: started
+                     enabled: yes
+           - name: "COpy the webpage.html to /var/www/html/ at workers"
+             copy:
+                     src: webpage.html
+                     dest: /var/www/html/index.html
+
