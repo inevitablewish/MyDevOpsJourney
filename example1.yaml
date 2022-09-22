@@ -1,0 +1,21 @@
+---
+ - name: "This is my first ansible playbook"
+   become: yes
+   hosts: workers
+   tasks: 
+       - name: "Creating user in hosts"
+         user:
+                 name: manager
+                 state: present
+
+
+       - name: "Creating Directory at /projectX"
+         file:
+                 name: /ProjectX
+                 state: directory
+                 owner: manager
+       
+       - name: "Create Sample README.txt file userdir /ProjectX"
+         copy:
+                 content: "Hi My Name is Mohsin"
+                 dest: /ProjectX/README.txt   
