@@ -1,3 +1,5 @@
+# ansible-playbook var-example2.yaml -e myvar1= SERVICE NAME -e myvar2= SERVICE STATE
+# ansible-playbook var-example2.yaml -e myvar1=docker -e myvar2=stopped
 ---
  - name: Playbook to manage services on LInux maching through Variables
    hosts:
