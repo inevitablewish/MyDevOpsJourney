@@ -1,3 +1,7 @@
+# Install packages using ansible FACTS using WHEN COndition
+# ansible worker1 -m setup
+# ansible worker1 setup | grep time
+# ansible worker1 -m setup -a 'filter=ansible_pkg_mgr'
 ---
  - name: This playbook show how to use FACTS with WHEN Condition
    hosts: workers
