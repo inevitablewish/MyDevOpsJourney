@@ -17,7 +17,12 @@
              debug:
                      msg: "Printing {{myvar1}} and {{myvar2}}"
 
-
+ - name : This is a new playbook to print the variables
+   hosts: worker2
+   tasks:
+           - name: "Printing Variables" 
+             debug:
+                     msg: myvar1 is "{{myvar1}}"
 
 
 
