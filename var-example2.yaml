@@ -1,0 +1,20 @@
+---
+ - name: Playbook to manage services on LInux maching through Variables
+   hosts:
+           - appserver
+           - workers
+   vars:
+           - myvar1: cron
+           - myvar2: stopped
+   become: yes
+   tasks:
+           - name: Service "{{myvar1}}" is getting "{{myvar2}}"
+             service:
+                     name: "{{myvar1}}"
+                     state: "{{myvar2}}"
+   
+           - name: "Pritning the task details"
+             debug:
+                     msg: "Printing {{myvar1}} and {{myvar2}}"
+
+
