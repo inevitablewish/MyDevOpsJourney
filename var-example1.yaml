@@ -19,6 +19,8 @@
 
  - name : This is a new playbook to print the variables
    hosts: worker2
+   vars:
+           - myvar1: "Mohsin"
    tasks:
            - name: "Printing Variables" 
              debug:
