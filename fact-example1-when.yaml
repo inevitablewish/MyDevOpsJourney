@@ -1,0 +1,17 @@
+---
+ - name: This playbook show how to use FACTS with WHEN Condition
+   hosts: workers
+   become: yes
+   tasks:
+           - name: Install httpsd using yum
+             yum:
+                     name: httpd
+                     state: present
+             when: ansible_pkg_mgr == "yum"
+
+           - name: Install Appache using apt
+             yum:
+                     name: apache2
+                     state: present
+             when: ansible_pkg_mgr == "apt"
+
