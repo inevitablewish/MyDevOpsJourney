@@ -6,9 +6,18 @@
          - name: A simple list with WITH_ITEMS
            debug: 
                 msg: My lucky numbers is {{ item }}
-           with_items: [1, [2, 3], 4, 'five']
+           with_items: 
+                        - 1
+                        - 2
+                        - 3
+                        - 4 
+                        - 'five'
 
          - name: A simple list loop
            debug:
                 msg: My lucky numbers is {{ item }}
-           loop: [1, [2, 3], 4, 'five']
+           loop: 
+                        - 1
+                        - 2
+                        - [3,4]
+                        - 'five'
