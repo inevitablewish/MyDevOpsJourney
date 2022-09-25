@@ -1,0 +1,25 @@
+# Install packages using ansible FACTS using WHEN COndition
+# ansible worker1 -m setup
+# ansible worker1 setup | grep time
+# ansible worker1 -m setup -a 'filter=ansible_pkg_mgr'
+# ###################################
+# Adding Memory Check before Installation
+
+---
+ - name: This playbook works after checking memory
+   hosts: workers
+   become: yes
+   tasks:
+           - name: Install mysql using yum
+             yum:
+                     name: mysql
+                     state: present
+             when: ansible_pkg_mgr == "yum" or ansible_memtotal_mb > 4000
+
+           - name: Install Appache using apt
+             apt:
+                     name: apache2
+                     state: present
+             when: ansible_pkg_mgr == "apt" or ansible_memtotal_mb > 4000
+             
+
