@@ -1,0 +1,7 @@
+---
+ - name: Host vars and Group vars example
+   hosts: workers
+   tasks:
+     - name: Display Msg
+       debug:
+           msg: "{{ var1 }} is in var1 var, {{ var2 }} is in var2 var, {{ var3 }} is in var3 var, {{ var4 }} is in var4 var"
