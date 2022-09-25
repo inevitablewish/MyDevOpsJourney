@@ -4,8 +4,8 @@
            - appserver
            - workers
    vars:
-           - myvar1: cron
-           - myvar2: stopped
+           - myvar1: docker
+           - myvar2: restarted
    become: yes
    tasks:
            - name: Service "{{myvar1}}" is getting "{{myvar2}}"
