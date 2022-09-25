@@ -1,0 +1,35 @@
+---
+ - name: APache webserver configuration
+   hosts: workers
+   become: yes
+   tasks:
+           - name: Update apt repo
+             command: "apt update"
+
+           - name: Installing apache server
+             apt:
+                     name: apache2
+                     state: latest
+
+
+           - name: Ensure listen 8080 instead of 80 # Change the default port number
+             lineinfile:
+                   path: /etc/apache2/ports.conf
+                   regexp: '^Listen'
+                   line: Listen 8080
+
+
+           - name: Ensure virtual host is on 8080 /etc/apache2/sites-enabled/000-default.conf # Change the default port number
+             lineinfile:
+                   path: /etc/apache2/sites-enabled/000-default.conf
+                   regexp: '^\<VirtualHost \*\:80\>'
+                   line: <VirtualHost *:8080>
+
+           - name: Start the service apache2
+             service:
+                     name: apache2
+                     state: restarted
+                     enabled: yes 
+
+
+
