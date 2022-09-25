@@ -1,0 +1,18 @@
+# added host level variables in ansible inventory for workers group
+---
+ - name: Install multiple services with single playbook
+   hosts: workers
+   become: yes
+   tasks:
+           - name: Install packages and start it
+             apt:
+                     name: "{{mypackage}}"
+                     state: present
+           - name: Start Service
+             service:
+                     name: "{{myservice}}"
+                     state: started
+
+           - name: Display Message
+             debug:
+                     msg: "{{mypackage}} is in mypackage var and {{myservice}} is in myservice var"     
