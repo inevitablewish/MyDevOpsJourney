@@ -1,0 +1,37 @@
+---
+ - name: "Apache Webserver for Ubuntu Hosts"
+   hosts: workers
+   become: yes
+   tasks:
+        - name: "Installing Apache2 package"
+          apt: 
+                name: apache2
+                state: latest
+                update_cache: yes
+          notify: "Start service apache2"
+
+        - name: Ensure Listen 8080 instead of Listen 80 
+          lineinfile:
+                path: /etc/apache2/ports.conf
+                regexp: '^Listen'
+                line: Listen 8081
+          notify: "Start service apache2"
+
+        - name: Ensure virtual host is on 8080 /etc/apache2/sites-enabled/000-default.conf
+          lineinfile:
+                path: /etc/apache2/sites-enabled/000-default.conf
+                regexp: '^\<VirtualHost \*\:80\>'
+                line: <VirtualHost *:8081>
+          notify: "Start service apache2"
+
+        - name: "Copy Webpage to /var/www/html"
+          copy: 
+                src: webpage.html
+                dest: /var/www/html/index.html
+   handlers:
+        - name: "Start service apache2"
+          service:
+                name: apache2
+                state: restarted
+                enabled: yes
+
