@@ -1,0 +1,13 @@
+---
+ - name: Setting up MOTD with templates
+   hosts: workers
+   become: yes
+   vars:
+           - myadmin: Mohsin
+             myemail: mohsinamalik85@gmail.com
+
+   tasks:
+           - name: Setting up MOTD
+             template:
+                     src: jinja2-example1.j2 
+                     dest: /etc/motd
