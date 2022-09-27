@@ -1,0 +1,14 @@
+---
+ - name: Loop for service management
+   hosts: workers
+   become: yes
+   tasks:
+           - name: Restart OR Stop OR Start Services
+             service:
+                     name: "{{item}}"
+                     state: restarted
+             loop:
+                     - ssh
+                     - docker
+                     - cron
+                     - apache2

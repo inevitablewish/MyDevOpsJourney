@@ -1,0 +1,44 @@
+---
+ - name: This playbook uses hhttpVars and Jinja2
+   hosts: workers
+   become: yes
+   vars_files:
+           -  httpVars.yaml
+   tasks:
+           - name: Install apache webserver
+             apt:
+                     name: apache2
+                     state: latest
+                     update_cache: yes
+             notify: "Restart Apache"
+
+
+
+
+
+           - name: Apache Listener Port {{http_port}} update
+             template:
+                     src: httpPort.j2
+                     dest: /etc/apache2/ports.conf
+             notify: "Restart Apache"
+
+           - name: Apache port {{http_port}} update in configuration file
+             template:
+                     src: httpConf.j2
+                     dest: /etc/apache2/site-enabled/000-default.conf
+             notify: "Restart Apache"
+
+
+           - name: Copying Webpage to document root
+             copy:
+                     src: webpage.html
+                     dest: "{{document_root}}/index.html"
+
+
+   handlers:
+           - name: "Restart Apache"
+             service:
+                     name: apache2
+                     status: restarted
+                     enaabled: yes
+
