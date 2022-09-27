@@ -1,0 +1,25 @@
+---
+ - name: Demof or tags
+   hosts: workers
+   tasks:
+           - name: Task1
+             debug:
+                     msg: This is task 1
+             tags: blue
+
+           - name: Task2
+             debug:
+                     msg: This is task 2
+             tags: red
+
+           - name: Task3
+             debug:
+                     msg: This is task 3
+             tags:
+                     - blue
+                       red
+
+           - name: Task4
+             debug:
+                     msg: This is task 4
+             tags: green

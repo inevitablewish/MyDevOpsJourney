@@ -1,10 +1,7 @@
-<VirtualHost *:{{http_port}}>
-
+<VirtualHost *:{{ http_port }}>
         ServerAdmin webmaster@localhost
-        DocumentRoot {{document_root}}
-
-
-        ErrorLog ${{error_log_path}}
-        CustomLog ${{access_log_path}} combined
-
+        DocumentRoot {{ document_root }}
+        ErrorLog {{ error_log_path }}
+        CustomLog {{ access_log_path }} combined
 </VirtualHost>
+

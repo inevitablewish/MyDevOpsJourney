@@ -1,44 +1,38 @@
 ---
- - name: This playbook uses hhttpVars and Jinja2
+ - name: Apache webserver configurations with custom conf and port nos
    hosts: workers
    become: yes
-   vars_files:
-           -  httpVars.yaml
-   tasks:
-           - name: Install apache webserver
-             apt:
-                     name: apache2
-                     state: latest
-                     update_cache: yes
-             notify: "Restart Apache"
+   vars_files: 
+      - httpvars.yaml
+   tasks: 
+      - name : Install apache webserver
+        apt: 
+            name: apache2
+            state: latest
+            update_cache: yes
+        notify: "Restart Apache"
 
+      - name: Apache Listen on port {{ http_port }}
+        template: 
+            src: httpPort.j2
+            dest: /etc/apache2/ports.conf
+        notify: "Restart Apache"
 
+      - name: Apache port {{ http_port }} update in configuration file
+        template:
+            src: httpConf.j2
+            dest: /etc/apache2/sites-enabled/000-default.conf
+        notify: "Restart Apache"
 
-
-
-           - name: Apache Listener Port {{http_port}} update
-             template:
-                     src: httpPort.j2
-                     dest: /etc/apache2/ports.conf
-             notify: "Restart Apache"
-
-           - name: Apache port {{http_port}} update in configuration file
-             template:
-                     src: httpConf.j2
-                     dest: /etc/apache2/site-enabled/000-default.conf
-             notify: "Restart Apache"
-
-
-           - name: Copying Webpage to document root
-             copy:
-                     src: webpage.html
-                     dest: "{{document_root}}/index.html"
-
+      - name: Copy webpage to document root
+        copy:
+            src: webpage.html
+            dest: "{{document_root}}/index.html"
 
    handlers:
-           - name: "Restart Apache"
-             service:
-                     name: apache2
-                     status: restarted
-                     enaabled: yes
+      - name: "Restart Apache"
+        service:
+            name: apache2
+            state: restarted
+            enabled: yes
 

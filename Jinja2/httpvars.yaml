@@ -1,5 +1,6 @@
 ---
-http_port: 8080
+http_port: 8088
 document_root: /var/www/html/
 error_log_path: /tmp/apache_error.log
 access_log_path: /tmp/apache_access.log
+
